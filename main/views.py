@@ -22,7 +22,7 @@ def index(request):
 #     model = UserModel
 
 def detail(request, pk):
-    data = get_object_or_404(UserModel, pk=pk)
+    data = get_object_or_404(UserModel, id=pk)
 
     context = {
         'data': data
@@ -43,7 +43,7 @@ def create(request):
         if form.is_valid():
             form.save()
 
-        return redirect('')
+        return redirect('/')
     else:
 
         form = UserModelForm()

@@ -5,7 +5,10 @@
 5. Whose salary more than 2000 and less than 1500.
 
 1. SELECT * FROM employees WHERE phone_number like '90%'
+1. SELECT * FROM employees WHERE phone_number like '%90' --> correct answer
 2. SELECT * FROM employees WHERE email like '@gmail.com%'
+2. SELECT * FROM employees WHERE email like '%@gmail.com'
+
 3. SELECT * FROM employees WHERE 6 >= department_id >= 5
 4. SELECT * FROM employees WHERE commission_pct > 5000
 5. SELECT * FROM employees WHERE commission_pct > 2000 and commission_pct < 1500
