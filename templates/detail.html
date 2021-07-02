@@ -1,11 +1,12 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
-    <div class="container">
-        <div class="small-container">
-            <h4>{{ data.name }}</h4>
-            <h4>{{ data.age }}</h4>
-            <h4>{{ data.salary }}</h4>
-        </div>
+    <div class="card-body">
+        <h4 class="card-title">Name: {{ data.name }}</h4>
+        <h4>Age: {{ data.age }}</h4>
+        <h4>Salary: $ {{ data.salary }}</h4>
+        <a href="/">
+            <button class="btn btn-success btn-sm" type="button">Back</button>
+        </a>
     </div>
 {% endblock %}
