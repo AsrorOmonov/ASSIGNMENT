@@ -54,8 +54,34 @@ def create(request):
 
         return render(request, 'form.html', context)
 
+
 # class BookUpdateView(UpdateView):
 #     template_name = 'form.html'
 #     form_class = UserModelForm
 #     success_url = ''
 #     model = UserModel
+
+def edit(request, pk):
+    user = get_object_or_404(UserModel, pk=pk)
+
+    if request.method == 'POST':
+        form = UserModelForm(request.POST, files=request.FILES, instance=user)
+
+        if form.is_valid():
+            form.save()
+
+        return redirect('/')
+    else:
+        form = UserModelForm(instance=user)
+
+        context = {
+            'form': form
+        }
+
+        return render(request, 'form.html', context)
+
+
+def delete(request, pk):
+    user = get_object_or_404(UserModel, pk=pk)
+    user.delete()
+    return redirect('/')

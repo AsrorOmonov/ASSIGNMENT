@@ -20,7 +20,16 @@
                 <td>{{ i.age }}</td>
                 <td>$ {{ i.salary }}</td>
                 <td>
-                    <a href="detail/{{ i.pk }}/"><button class="btn btn-success btn-sm" type="button">Read</button></a>
+                    <a href="detail/{{ i.pk }}/">
+                        <button class="btn btn-success btn-sm" type="button">Read</button>
+                    </a>
+                    <a href="edit/{{ i.pk }}/">
+                        <button class="btn btn-info btn-sm" type="button">Edit</button>
+                    </a>
+                    <a onclick="return confirm('u sure ?')" href="delete/{{ i.pk }}/">
+                        <button class="btn btn-danger btn-sm" type="button">Delete</button>
+                    </a>
+
                 </td>
 
             </tr>
