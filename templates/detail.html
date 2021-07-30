@@ -2,9 +2,11 @@
 
 {% block content %}
     <div class="card-body">
-        <h4 class="card-title">Name: {{ data.name }}</h4>
-        <h4>Age: {{ data.age }}</h4>
-        <h4>Salary: $ {{ data.salary }}</h4>
+        <h4 class="card-title">Name: {{ object.name }}</h4>
+        <h4>Age: {{ object.age }}</h4>
+        <h4>Salary: $ {{ object.salary }}</h4>
+        {#        <p>{{ object.description|safe }}</p>#}
+        {#  object.description|safe => safe is used cuz of image within ckeditor (HTML)  #}
         <a href="/">
             <button class="btn btn-success btn-sm" type="button">Back</button>
         </a>

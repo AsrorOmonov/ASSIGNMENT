@@ -1,4 +1,5 @@
 {% extends 'layouts/base.html' %}
+{% load admin_tags %}
 
 {% block content %}
 
@@ -13,25 +14,31 @@
         </tr>
         </thead>
         <tbody>
-        {% for i in data %}
+        {% for i in object_list %}
             <tr>
                 <th scope="row">{{ i.id }}</th>
                 <td>{{ i.name }}</td>
                 <td>{{ i.age }}</td>
                 <td>$ {{ i.salary }}</td>
                 <td>
-                    <a href="detail/{{ i.pk }}/">
+                    <a href="{% url 'main:detail' pk=i.pk %}">
                         <button class="btn btn-success btn-sm" type="button">Read</button>
                     </a>
-                    <a href="edit/{{ i.pk }}/">
+                    <a href="{% url 'main:edit' pk=i.pk %}">
                         <button class="btn btn-info btn-sm" type="button">Edit</button>
                     </a>
-                    <a onclick="return confirm('u sure ?')" href="delete/{{ i.pk }}/">
-                        <button class="btn btn-danger btn-sm" type="button">Delete</button>
-                    </a>
 
+                    <form onsubmit="return confirm('r u sure ?')" method="post"
+                          action="{% url 'main:delete' pk=i.pk %}">
+                        {% csrf_token %}
+
+                        <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                    </form>
+
+                    {#                    <a onclick="return confirm('u sure ?')" href="delete/{{ i.pk }}/">#}
+                    {#                        <button class="btn btn-danger btn-sm" type="button">Delete</button>#}
+                    {#                    </a>#}
                 </td>
-
             </tr>
         {% endfor %}
         </tbody>

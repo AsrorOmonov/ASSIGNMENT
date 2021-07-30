@@ -1,10 +1,28 @@
 {% extends 'layouts/base.html' %}
-
-
+{% load widget_tweaks %}
 {% block content %}
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-success" type="submit">Save</button>
-    </form>
+    {#    <form method="post" enctype="multipart/form-data">#}
+    {#        {% csrf_token %}#}
+    {#        {{ form.as_p }}#}
+    {#        <button class="btn btn-success" type="submit">Save</button>#}
+    {#    </form>#}
+    {#    <a href="/"> <button class="btn btn-info" type="button">Back</button></a>#}
+
+    <div class="col-lg-4 offset-lg-3">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    <p>{{ field.label }}:</p>
+                        {% for error in field.errors %}
+                            <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
+                    {{ field|add_class:'form-control' }} {# {{ form.name}} -> name is taken UserModelForm #}
+                </div>
+            {% endfor %}
+
+            <button class="btn btn-success float-right" type="submit">Save</button>
+        </form>
+    </div>
+
 {% endblock %}

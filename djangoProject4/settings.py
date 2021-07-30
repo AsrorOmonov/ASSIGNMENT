@@ -1,20 +1,30 @@
 from pathlib import Path
 
+from decouple import config
+from easy_thumbnails.conf import Settings as thumbnail_settings
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-v*uf03*$36^6c%#uh!yn8vyg4i51$a#4)*e6o1u2r++u!l1%nh'
+SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
+    'registration',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'easy_thumbnails',
+    'image_cropping',
+    'widget_tweaks',
+    'ckeditor',
+    'ckeditor_uploader',
 
     'main',
 ]
@@ -52,10 +62,19 @@ TEMPLATES = [
 WSGI_APPLICATION = 'djangoProject4.wsgi.application'
 
 DATABASES = {
+
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASS'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
+
     }
+
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -92,3 +111,30 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = '/admin/login/'
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
+
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.gmail.com'  # email smtp
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'mr.omonov.asror@gmail.com'
+# EMAIL_HOST_PASSWORD = ''
+
+CKEDITOR_UPLOAD_PATH = "ckeditor_uploads/"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+    },
+}
+
+ACCOUNT_ACTIVATION_DAYS = 3
+
+THUMBNAIL_PROCESSORS = (
+                           'image_cropping.thumbnail_processors.crop_corners',
+                       ) + thumbnail_settings.THUMBNAIL_PROCESSORS
